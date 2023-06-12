@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+  db:
+    container_name: postgres_database
+    image: postgres:14.5
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: docker_postges
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  web:
+    image: ml_tagging
+    build: .
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    container_name: docker_test
+    depends_on:
+      - db
+    volumes:
+      - .:/docker_test
+    ports:
+      - "8000:8000"
+volumes:
+  db:
+#    driver: local
