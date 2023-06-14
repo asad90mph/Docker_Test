@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'docker_postges',
         'USER': 'admin',
         'PASSWORD': 'admin',
-        'HOST': '172.19.0.2',
+        'HOST': 'db',
         'PORT': '5432',
 
     }
