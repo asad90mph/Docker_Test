@@ -69,11 +69,11 @@ jobs:
         run: | 
           docker-compose build
           docker push ${{ secrets.DOCKER_USERNAME }}/docker_test
-      - name: Generate SSH key pair
-        run: |
-            ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/workflow_key
-            eval "$(ssh-agent -s)"
-            ssh-add ~/.ssh/workflow_key
+#      - name: Generate SSH key pair
+#        run: |
+#            ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/workflow_key
+#            eval "$(ssh-agent -s)"
+#            ssh-add ~/.ssh/workflow_key
 
       - name: Copy public key to EC2 instance
         run: |
