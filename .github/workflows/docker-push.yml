@@ -69,10 +69,20 @@ jobs:
         run: | 
           docker-compose build
           docker push ${{ secrets.DOCKER_USERNAME }}/docker_test
-      - name: Deploy Docker image to EC2
+      - name: Generate SSH key pair
         run: |
-          ssh -i ${{secrets.EC2_SSH}} ec2-user@13.48.104.136 "docker pull ${{ secrets.DOCKER_USERNAME }}/docker_test"
-          ssh -i ${{secrets.EC2_SSH}} ec2-user@13.48.104.136 "docker run -d -p 80:80 ${{ secrets.DOCKER_USERNAME }}/docker_test"
+            ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/workflow_key
+            eval "$(ssh-agent -s)"
+            ssh-add ~/.ssh/workflow_key
+
+      - name: Copy public key to EC2 instance
+        run: |
+            ssh-copy-id -i ~/.ssh/workflow_key.pub ec2-user@13.48.104.136
+
+      - name: Push Docker Compose to EC2 instance
+        run: |
+            scp -i ~/.ssh/workflow_key docker-compose.yml ec2-user@13.48.104.136:~/docker-compose.yml
+            ssh -i ~/.ssh/workflow_key ec2-user@13.48.104.136 'docker-compose -f ~/docker-compose.yml up -d'
 #      - name: Install AWS CLI
 #        run: |
 #          sudo apt-get update
