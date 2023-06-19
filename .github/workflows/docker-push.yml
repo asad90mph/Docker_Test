@@ -29,6 +29,8 @@ jobs:
       steps:
         - name: Install AWS CLI
           run: |
+              sudo apt-get install rpm
+              sudo apt-get install yum
               sudo yum update -y
               sudo yum install -y awscli
 
