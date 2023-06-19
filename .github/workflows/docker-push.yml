@@ -77,7 +77,7 @@ jobs:
 
       - name: Copy public key to EC2 instance
         run: |
-            ssh-copy-id -i ~/.ssh/workflow_key.pub ec2-user@13.48.104.136
+            ssh-copy-id -o StrictHostKeyChecking=no -i ~/.ssh/workflow_key.pub ec2-user@13.48.104.136
 
       - name: Push Docker Compose to EC2 instance
         run: |
