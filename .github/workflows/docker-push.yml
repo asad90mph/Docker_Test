@@ -24,7 +24,11 @@ jobs:
 
       - name: connect to EC2
         run: |
-           echo "$EC2_SSH" > security.pem && sudo chmod 400 security.pem && ls -l security.pem && ls
+           sudo apt-get update
+           mkdir -p ~/.ssh/
+           echo "${{secrets.EC2_SSH}}" > ~/.ssh/security.pem
+           chmod 400 ~/.ssh/security.pem
+#           echo "$EC2_SSH" > security.pem && sudo chmod 400 security.pem && ls -l security.pem && ls
            ssh -T -o StrictHostKeyChecking=no -i security.pem ec2-user@ec2-13-48-104-136.eu-north-1.compute.amazonaws.com
 
 
