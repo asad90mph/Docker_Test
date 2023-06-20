@@ -77,8 +77,10 @@ jobs:
 
       - name: Copy public key to EC2 instance
         run: |
-            ssh -o StrictHostKeyChecking=no -i ${{secrets.EC2_SSH}} ec2-user@13.48.104.136
-            pwd && ls -l
+             echo {{secrets.EC2_SSH}}
+#            echo ${{secrets.EC2_SSH}} > server.pem && chmod 600 server.pem
+#            ssh -o StrictHostKeyChecking=no -i server.pem ec2-user@13.48.104.136
+#            pwd && ls -l
 
 #      - name: Push Docker Compose to EC2 instance
 #        run: |
