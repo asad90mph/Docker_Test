@@ -19,8 +19,8 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/docker_test
+#      - name: Build the Docker image
+#        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/docker_test
 
       - name: connect to EC2
         run: |
@@ -31,9 +31,9 @@ jobs:
            ssh -T -o StrictHostKeyChecking=no -i ~/.ssh/security.pem ec2-user@ec2-13-48-104-136.eu-north-1.compute.amazonaws.com
            pwd
 #           cd docker_test
-#           git pull origin master
-#           sudo docker-compose build
-#           sudo docker-compose up
+           git pull origin master
+           sudo docker-compose build
+           sudo docker-compose up
           
 
 
