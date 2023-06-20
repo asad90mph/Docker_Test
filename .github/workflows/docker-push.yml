@@ -50,7 +50,7 @@ on:
     branches: ['master']
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -69,19 +69,22 @@ jobs:
 #        run: |
 ##          docker-compose build
 #          docker push ${{ secrets.DOCKER_USERNAME }}/docker_test
+#      - name: Build the Docker image
+#        uses: app
 #      - name: Generate SSH key pair
 #        run: |
 #            ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/workflow_key
 #            eval "$(ssh-agent -s)"
 #            ssh-add ~/.ssh/workflow_key
-  deploy:
-      runs-on: ubuntu-latest
-      steps:
-        - name: connect to EC2
-          run: |
-             echo "$EC2_SSH"
-             echo "$EC2_SSH" > server.pem && chmod 400 server.pem && cat server.pem
-             ssh -o StrictHostKeyChecking=no -i server.pem ec2-user@13.48.104.136
+#  deploy:
+#      runs-on: ubuntu-latest
+#      steps:
+      - name: connect to EC2
+        run: |
+#             echo "$EC2_SSH"
+           echo "$EC2_SSH" > server.pem && chmod 600 server.pem && cat server.pem
+           ssh -o StrictHostKeyChecking=no -i server.pem ec2-user@ec2-13-48-104-136.eu-north-1.compute.amazonaws.com
+
 #            pwd && ls -l
 
 #      - name: Push Docker Compose to EC2 instance
