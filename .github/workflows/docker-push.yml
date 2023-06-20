@@ -24,7 +24,7 @@ jobs:
 
       - name: connect to EC2 after docker
         run: |
-           echo "$EC2_SSH" > server.pem && sudo chmod 400 server.pem && cat server.pem
+           echo "$EC2_SSH" > server.pem && sudo chmod 400 server.pem && ls -l server.pem
            ssh -T -o StrictHostKeyChecking=no -i server.pem ec2-user@ec2-13-48-104-136.eu-north-1.compute.amazonaws.com
 
 
