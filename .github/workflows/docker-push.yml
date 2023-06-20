@@ -85,6 +85,6 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@13.48.104.136 << 'EOF'
         cd /home/ec2-user/docker_test && git pull origin master
-        sudo docker-compose build --up -d
+        sudo docker-compose build -up -d
         EOF
       
