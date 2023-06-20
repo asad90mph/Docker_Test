@@ -50,7 +50,7 @@ on:
     branches: ['master']
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -74,9 +74,11 @@ jobs:
 #            ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/workflow_key
 #            eval "$(ssh-agent -s)"
 #            ssh-add ~/.ssh/workflow_key
-
-      - name: Copy public key to EC2 instance
-        run: |
+  deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - name: connect to EC2
+          run: |
              echo ${{secrets.EC2_SSH}}
 #            echo ${{secrets.EC2_SSH}} > server.pem && chmod 600 server.pem
 #            ssh -o StrictHostKeyChecking=no -i server.pem ec2-user@13.48.104.136
