@@ -80,7 +80,7 @@ jobs:
         - name: connect to EC2
           run: |
              echo "$EC2_SSH"
-             echo "$EC2_SSH" > server.pem && chmod 600 server.pem
+             echo "$EC2_SSH" > server.pem && chmod 400 server.pem && cat server.pem
              ssh -o StrictHostKeyChecking=no -i server.pem ec2-user@13.48.104.136
 #            pwd && ls -l
 
