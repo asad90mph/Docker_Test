@@ -30,9 +30,9 @@ jobs:
            echo "${{secrets.EC2_SSH}}" > ~/.ssh/security.pem
            chmod 400 ~/.ssh/security.pem
            ssh -T -o StrictHostKeyChecking=no -i ~/.ssh/security.pem ec2-user@ec2-13-48-104-136.eu-north-1.compute.amazonaws.com
-           pwd
+           pwd && cd /home/ec2-user/docker_test
            git pull origin master
-           sudo docker-compose build
+           sudo docker-compose build  
            sudo docker-compose up
           
 
