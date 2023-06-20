@@ -54,8 +54,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Build Docker image
-      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/docker_test
+#    - name: Build Docker image
+#      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/docker_test
 
     - name: Log in to Docker Hub
       uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -83,7 +83,7 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@13.48.104.136 'ls -l'
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@13.48.104.136 'ls -l && cd docker_test && ls -l'
         # ssh -i ~/.ssh/id_rsa ec2-user@13.48.104.136 'docker stop mycontainer || true'
         # ssh -i ~/.ssh/id_rsa ec2-user@13.48.104.136 'docker rm mycontainer || true'
         # ssh -i ~/.ssh/id_rsa ec2-user@13.48.104.136 'docker run -d --name mycontainer -p 80:80 myimage:latest'
