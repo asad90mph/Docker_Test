@@ -62,13 +62,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/docker_test
-
-      - name: Docker Push
-        run: | 
-          docker-compose build
-          docker push ${{ secrets.DOCKER_USERNAME }}/docker_test
+#      - name: Build the Docker image
+#        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/docker_test
+#
+#      - name: Docker Push
+#        run: |
+##          docker-compose build
+#          docker push ${{ secrets.DOCKER_USERNAME }}/docker_test
 #      - name: Generate SSH key pair
 #        run: |
 #            ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/workflow_key
@@ -77,12 +77,13 @@ jobs:
 
       - name: Copy public key to EC2 instance
         run: |
-            ssh-copy-id -o StrictHostKeyChecking=no -i ~/.ssh/workflow_key.pub ec2-user@13.48.104.136
+            ssh -o StrictHostKeyChecking=no -i ${{secrets.EC2_SSH}} ec2-user@13.48.104.136
+            pwd && ls -l
 
-      - name: Push Docker Compose to EC2 instance
-        run: |
-            scp -i ~/.ssh/workflow_key docker-compose.yml ec2-user@13.48.104.136:~/docker-compose.yml
-            ssh -i ~/.ssh/workflow_key ec2-user@13.48.104.136 'docker-compose -f ~/docker-compose.yml up -d'
+#      - name: Push Docker Compose to EC2 instance
+#        run: |
+#            scp -i ~/.ssh/workflow_key docker-compose.yml ec2-user@13.48.104.136:~/docker-compose.yml
+#            ssh -i ~/.ssh/workflow_key ec2-user@13.48.104.136 'docker-compose -f ~/docker-compose.yml up -d'
 #      - name: Install AWS CLI
 #        run: |
 #          sudo apt-get update
