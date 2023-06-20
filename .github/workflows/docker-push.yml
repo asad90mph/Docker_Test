@@ -83,7 +83,7 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -i ~/.ssh/id_rsa ec2-user@13.48.104.136 'ls -l'
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@13.48.104.136 'ls -l'
         # ssh -i ~/.ssh/id_rsa ec2-user@13.48.104.136 'docker stop mycontainer || true'
         # ssh -i ~/.ssh/id_rsa ec2-user@13.48.104.136 'docker rm mycontainer || true'
         # ssh -i ~/.ssh/id_rsa ec2-user@13.48.104.136 'docker run -d --name mycontainer -p 80:80 myimage:latest'
