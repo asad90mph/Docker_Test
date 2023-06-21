@@ -85,8 +85,8 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@13.48.104.136 << 'EOF'
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@13.53.97.33 << 'EOF'
         cd /home/ec2-user/docker_test && docker pull ${{ secrets.DOCKER_USERNAME }}/docker_test
-        docker run -d ${{ secrets.DOCKER_USERNAME }}/docker_test
+        ssh -i ~/.ssh/id_rsa ec2-user@13.50.4.35 "docker run -d ${{ secrets.DOCKER_USERNAME }}/docker_test"
         EOF
       
