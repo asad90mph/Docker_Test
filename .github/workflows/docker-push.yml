@@ -61,9 +61,9 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Build Docker image
-      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/docker_test
+#
+#    - name: Build Docker image
+#      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/docker_test
 
 #    - name: Log in to Docker Hub
 #      run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ secrets.DOCKERHUB_ec2-user }} --password-stdin
@@ -87,6 +87,6 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@13.53.97.33 << 'EOF'
         cd /home/ec2-user/docker_test && docker pull ${{ secrets.DOCKER_USERNAME }}/docker_test
-        ssh -i ~/.ssh/id_rsa ec2-user@13.53.97.33 "docker run -d ${{ secrets.DOCKER_USERNAME }}/docker_test"
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@13.53.97.33 "docker run -d ${{ secrets.DOCKER_USERNAME }}/docker_test"
         EOF
       
