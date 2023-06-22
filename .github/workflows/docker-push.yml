@@ -61,26 +61,26 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker Image
-      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/docker_test
+      run: docker-compose build . --file docker-compose.yml --tag ${{ secrets.DOCKER_USERNAME }}/docker_test
 
     - name: Push Docker Image
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/docker_test
-
-  deploy:
-    needs: build
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Configure SSH key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.EC2_SSH }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-    - name: Deploy to EC2
-      run: |
-        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@13.53.97.33 << 'EOF'
-        cd /home/ec2-user/docker_test && docker pull ${{ secrets.DOCKER_USERNAME }}/docker_test
-        EOF
+      run: docker-compose push ${{ secrets.DOCKER_USERNAME }}/docker_test
+#
+#  deploy:
+#    needs: build
+#
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#    - name: Configure SSH key
+#      run: |
+#        mkdir -p ~/.ssh
+#        echo "${{ secrets.EC2_SSH }}" > ~/.ssh/id_rsa
+#        chmod 600 ~/.ssh/id_rsa
+#    - name: Deploy to EC2
+#      run: |
+#        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@13.53.97.33 << 'EOF'
+#        cd /home/ec2-user/docker_test && docker pull ${{ secrets.DOCKER_USERNAME }}/docker_test
+#        EOF
 
       
