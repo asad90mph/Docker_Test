@@ -64,7 +64,7 @@ jobs:
       run: docker-compose build --file docker-compose.yml --tag ${{ secrets.DOCKER_USERNAME }}/docker_test
 
     - name: Push Docker Image
-      run: docker-compose push ${{ secrets.DOCKER_USERNAME }}/docker_test
+      run: docker-compose push
 #
 #  deploy:
 #    needs: build
