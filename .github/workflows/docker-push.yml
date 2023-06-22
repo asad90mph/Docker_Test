@@ -61,7 +61,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker Image
-      run: docker-compose build --file docker-compose.yml --tag ${{ secrets.DOCKER_USERNAME }}/docker_test
+      run: docker-compose build --file docker-compose.yml
 
     - name: Push Docker Image
       run: docker-compose push
