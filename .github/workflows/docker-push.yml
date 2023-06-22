@@ -64,7 +64,7 @@ jobs:
       run: docker-compose build --file docker-compose.yml --
 
     - name: Push Docker Image
-      run: docker-compose push
+      run: docker-compose push --file docker-compose.yml --
 #
 #  deploy:
 #    needs: build
