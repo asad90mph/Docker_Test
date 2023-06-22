@@ -60,8 +60,11 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build Docker image
+    - name: Build Docker Image
       run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/docker_test
+
+    - name: Push Docker Image
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/docker_test
 
   deploy:
     needs: build
